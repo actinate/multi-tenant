@@ -18,7 +18,6 @@ use Hyn\Tenancy\Contracts\CurrentHostname;
 use Hyn\Tenancy\Contracts\Hostname;
 use Hyn\Tenancy\Contracts\Tenant;
 use Hyn\Tenancy\Contracts\Website;
-use Hyn\Tenancy\Database\Connection;
 use Hyn\Tenancy\Events;
 use Hyn\Tenancy\Jobs\HostnameIdentification;
 use Hyn\Tenancy\Traits\DispatchesEvents;
@@ -46,7 +45,7 @@ class Environment
 
         $this->defaults();
 
-        if ((! $app->runningInConsole() || $app->runningUnitTests()) &&
+        if ((!$app->runningInConsole() || $app->runningUnitTests()) &&
             $this->installed() &&
             config('tenancy.hostname.auto-identification')) {
             $this->identifyHostname();
@@ -57,20 +56,20 @@ class Environment
 
     public function installed(): bool
     {
-        $isInstalled = function (): bool {
-            /** @var \Illuminate\Database\Connection $connection */
-            $connection = $this->app->make(Connection::class)->system();
-            /** @var string $table */
-            $table = $this->app->make(Website::class)->getTable();
+        // $isInstalled = function (): bool {
+        //     /** @var \Illuminate\Database\Connection $connection */
+        //     $connection = $this->app->make(Connection::class)->system();
+        //     /** @var string $table */
+        //     $table = $this->app->make(Website::class)->getTable();
 
-            try {
-                $tableExists = $connection->getSchemaBuilder()->hasTable($table);
-            } finally {
-                return $tableExists ?? false;
-            }
-        };
+        //     try {
+        //         $tableExists = $connection->getSchemaBuilder()->hasTable($table);
+        //     } finally {
+        //         return $tableExists ?? false;
+        //     }
+        // };
 
-        return $this->installed ?? $this->installed = $isInstalled();
+        return true;
     }
 
     public function identifyHostname()
