@@ -14,10 +14,10 @@
 
 namespace Hyn\Tenancy\Repositories;
 
-use Hyn\Tenancy\Contracts\Repositories\HostnameRepository as Contract;
-use Hyn\Tenancy\Events\Hostnames as Events;
 use Hyn\Tenancy\Contracts\Hostname;
+use Hyn\Tenancy\Contracts\Repositories\HostnameRepository as Contract;
 use Hyn\Tenancy\Contracts\Website;
+use Hyn\Tenancy\Events\Hostnames as Events;
 use Hyn\Tenancy\Traits\DispatchesEvents;
 use Hyn\Tenancy\Validators\HostnameValidator;
 use Illuminate\Contracts\Cache\Factory;
@@ -122,7 +122,7 @@ class HostnameRepository implements Contract
         $this->validator->save($hostname);
 
         $dirty = collect(array_keys($hostname->getDirty()))->mapWithKeys(function ($value, $key) use ($hostname) {
-            return [ $value => $hostname->getOriginal($value) ];
+            return [$value => $hostname->getOriginal($value)];
         });
 
         $hostname->save();

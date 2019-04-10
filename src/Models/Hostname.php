@@ -14,6 +14,7 @@
 
 namespace Hyn\Tenancy\Models;
 
+use Cache;
 use Carbon\Carbon;
 use Hyn\Tenancy\Abstracts\SystemModel;
 use Hyn\Tenancy\Contracts\Hostname as HostnameContract;
@@ -41,5 +42,12 @@ class Hostname extends SystemModel implements HostnameContract
     public function website(): BelongsTo
     {
         return $this->belongsTo(config('tenancy.models.website'));
+    }
+
+    public function cachedWebsite()
+    {
+        return Cache::remember("tenancy.hostname.$this->fqdn.website", config('tenancy.hostname.cache'), function () {
+            return $this->website;
+        });
     }
 }

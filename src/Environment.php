@@ -78,7 +78,7 @@ class Environment
             /** @var Hostname $hostname */
             $hostname = $this->dispatch(new HostnameIdentification());
 
-            $this->tenant(optional($hostname)->website);
+            $this->tenant(optional($hostname)->cachedWebsite());
 
             return $hostname;
         });
@@ -107,7 +107,7 @@ class Environment
     {
         $hostname = $this->hostname();
 
-        return $hostname ? $hostname->website : null;
+        return $hostname ? $hostname->cachedWebsite() : null;
     }
 
     /**
