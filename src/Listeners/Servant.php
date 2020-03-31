@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see https://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/hyn/multi-tenant
  */
 
@@ -99,7 +99,7 @@ class Servant
 
                 if ($generator instanceof SavesToPath) {
                     $original = $event->website->newInstance();
-                    $original->setRawAttributes($event->website->getOriginal());
+                    $original->setRawAttributes($event->website->getRawOriginal());
                     $path = $generator->targetPath($original);
                 }
 

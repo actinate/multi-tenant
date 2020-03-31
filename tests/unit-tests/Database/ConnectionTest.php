@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see https://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/hyn/multi-tenant
  */
 
@@ -96,7 +96,7 @@ class ConnectionTest extends Test
     public function override_to_tenant_connection()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Database [tenant] not configured.');
+        $this->expectExceptionMessage('Database connection [tenant] not configured.');
 
         config(['tenancy.db.force-tenant-connection-of-models' => [NonExtend::class]]);
 

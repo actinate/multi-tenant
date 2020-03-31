@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see https://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/hyn/multi-tenant
  */
 
@@ -60,6 +60,8 @@ class TenancyProvider extends ServiceProvider
     public function boot()
     {
         $this->bootCommands();
+
+        $this->bootObservers();
     }
 
     protected function registerModels()
@@ -68,8 +70,11 @@ class TenancyProvider extends ServiceProvider
 
         $this->app->bind(HostnameContract::class, $config['hostname']);
         $this->app->bind(WebsiteContract::class, $config['website']);
+    }
 
-        forward_static_call([$config['hostname'], 'observe'], FlushHostnameCache::class);
+    protected function bootObservers()
+    {
+        forward_static_call([$this->app['config']['tenancy.models.hostname'], 'observe'], FlushHostnameCache::class);
     }
 
     protected function registerProviders()

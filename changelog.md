@@ -1,3 +1,20 @@
+- 5.6.2
+    - Upgrade ramsey/uuid to ^4.0
+- 5.6.1
+    - #904, Update QueueProvider.php
+- 5.6.0
+    - Minimum requirement for Laravel 7.0.
+    - #870, Laravel 5.8+ uses seconds for its cache remember function
+- 5.5.0
+    - Minimum requirement for Laravel 6.0.
+- 5.4.5
+    - #805, Fix parsing of url scheme in UpdateAppUrl listener.
+    - #811, Fix issue that prevented multiple hostnames to work properly.
+- 5.4.4
+    - Fixed queue provider again, seems like we didn't tackle it yet.
+- 5.4.3
+    - #778, Fix queue provider horizon bug by partially reverting
+    - #779, Auto job tenancy for the dispatcher
 - 5.4.2
     - Fixed ability to override tenant in queue jobs.
 - 5.4.1

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see https://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/hyn/multi-tenant
  */
 
@@ -34,10 +34,12 @@ class UpdateAppUrl
     public function force($event)
     {
         if (config('tenancy.hostname.update-app-url', false)) {
-            $scheme = optional(request())->getScheme() ?? parse_url(config('app.url', PHP_URL_SCHEME));
+            $scheme = optional(request())->getScheme() ?? parse_url(config('app.url'), PHP_URL_SCHEME);
 
             /** @var Hostname $hostname */
-            $hostname = $event->hostname ?? $event->website->hostnames->first();
+            $hostname = $event->hostname
+                ?? $event->website->hostnames->firstWhere('fqdn', optional(request())->getHost())
+                ?? $event->website->hostnames->first();
 
             if ($hostname) {
                 $url = sprintf('%s://%s', $scheme, $hostname->fqdn);
