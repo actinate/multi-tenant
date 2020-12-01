@@ -45,10 +45,10 @@ class HostnameIdentification
             $hostname = $hostnameRepository->getDefault();
         }
 
-        // $this->emitEvent(new Events\Hostnames\Identified($hostname));
+        $this->emitEvent(new Events\Hostnames\Identified($hostname));
         $website = optional($hostname)->cachedWebsite();
         if ($website) {
-            // $this->emitEvent(new Events\Websites\Identified($website, $hostname));
+            $this->emitEvent(new Events\Websites\Identified($website, $hostname));
         } else {
             $this->emitEvent(new Events\Websites\NoneFound($request));
         }
