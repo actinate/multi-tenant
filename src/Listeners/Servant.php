@@ -99,7 +99,7 @@ class Servant
 
                 if ($generator instanceof SavesToPath) {
                     $original = $event->website->newInstance();
-                    $original->setRawAttributes($event->website->getRawOriginal());
+                    $original->setRawAttributes($event->website->getOriginal());
                     $path = $generator->targetPath($original);
                 }
 
